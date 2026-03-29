@@ -12,6 +12,9 @@ class DuedateTask extends Task {
     }
 }
 
+// Promise delay function to create a delay for the delete button
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 let tasks = [];
 
 const taskInput = document.getElementById("taskInput");
@@ -41,7 +44,27 @@ function displayTasks() {
         li.textContent = task.task + " | " + task.category + " | " + task.duedate;
 
         todoList.appendChild(li);
+
+        // create delete button for each task
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("deleteButton");
+        deleteButton.textContent = "Delete";
+
+        // add event listener to delete button to remove the task from the list
+        deleteButton.onclick = async function() {
+            // wait 1second before removing the task
+            await delay(1000);
+            todoList.removeChild(li);
+        }
+
+        // add delete button to the task item
+        li.appendChild(deleteButton);
     });
+
+    // delete input values after adding the task
+    document.getElementById("taskInput").value = "";
+    document.getElementById("categoryInput").value = "";
+    document.getElementById("duedateInput").value = "";
 }
 
 todoForm.addEventListener("submit", function(event) {
