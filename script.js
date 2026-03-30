@@ -46,7 +46,19 @@ function displayTasks() {
 
         todoList.appendChild(li);
 
-        // create delete button for each task
+        // call the function to create delete button
+        createDeleteButton(li, task);
+    });
+
+    // delete input values after adding the task to the list
+    document.getElementById("taskInput").value = "";
+    document.getElementById("categoryInput").value = "";
+    document.getElementById("duedateInput").value = "";
+}
+
+function createDeleteButton(li, task) {
+
+    // create delete button for each task
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("deleteButton");
         deleteButton.textContent = "Delete";
@@ -55,17 +67,14 @@ function displayTasks() {
         deleteButton.onclick = async function() {
             // wait 1second before removing the task
             await delay(1000);
+            // remove the task from the list
             todoList.removeChild(li);
+            // remove the task from the tasks array
+            tasks.splice(tasks.indexOf(task), 1);
         }
 
         // add delete button to the task item
         li.appendChild(deleteButton);
-    });
-
-    // delete input values after adding the task to the list
-    document.getElementById("taskInput").value = "";
-    document.getElementById("categoryInput").value = "";
-    document.getElementById("duedateInput").value = "";
 }
 
 function filterTasks() {
@@ -86,6 +95,9 @@ function filterTasks() {
             const li = document.createElement("li");
             li.textContent = `${task.task} | ${task.category} | ${task.duedate}`;
             todoList.appendChild(li);
+
+            // call the function to create delete button
+            createDeleteButton(li, task);
         }
     });
 }
