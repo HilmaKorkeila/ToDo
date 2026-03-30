@@ -61,7 +61,7 @@ function displayTasks() {
         li.appendChild(deleteButton);
     });
 
-    // delete input values after adding the task
+    // delete input values after adding the task to the list
     document.getElementById("taskInput").value = "";
     document.getElementById("categoryInput").value = "";
     document.getElementById("duedateInput").value = "";
