@@ -22,6 +22,7 @@ const categoryInput = document.getElementById("categoryInput");
 const duedateInput = document.getElementById("duedateInput");
 const todoList = document.getElementById("todoList");
 const todoForm = document.getElementById("todoForm");
+const filterInput = document.getElementById("filterInput");
 
 
 function addTask() {
@@ -65,6 +66,28 @@ function displayTasks() {
     document.getElementById("taskInput").value = "";
     document.getElementById("categoryInput").value = "";
     document.getElementById("duedateInput").value = "";
+}
+
+function filterTasks() {
+    const filter = filterInput.value.toLowerCase();
+
+    // clear the list
+    todoList.innerHTML = "";
+
+    // check the events
+    tasks.forEach(task => {
+        const match =
+            task.task.toLowerCase().includes(filter) ||
+            task.category.toLowerCase().includes(filter) ||
+            task.duedate.toLowerCase().includes(filter);
+
+        // if there is a match, display the task
+        if (match) {
+            const li = document.createElement("li");
+            li.textContent = `${task.task} | ${task.category} | ${task.duedate}`;
+            todoList.appendChild(li);
+        }
+    });
 }
 
 todoForm.addEventListener("submit", function(event) {
